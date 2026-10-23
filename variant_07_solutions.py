@@ -26,7 +26,14 @@ def classify_radar_target(target: tuple) -> str:
     - ("drone", d, v) при v < 100 -> "Малошвидкісний БПЛА на відстані {d} км"
     - _ -> "Невідомий об'єкт"
     """
-    ...
+    match target:
+        case ("aircraft", d, v) if V > 300:
+            print(f"Швидкісний літак на відстані {d} км")
+        case ("drone", d, v) if v < 100:
+            print(f"Малошвидкісний БПЛА на відстані {d} км")
+        case _:
+            print(f"Невідомий об'єкт")
+               
 
 # Задача 3: Нагнітання тиску (while / else)
 def charge_pressure_vessel(target_bar: float) -> str:
