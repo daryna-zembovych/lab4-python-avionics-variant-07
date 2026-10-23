@@ -27,7 +27,7 @@ def classify_radar_target(target: tuple) -> str:
     - _ -> "Невідомий об'єкт"
     """
     match target:
-        case ("aircraft", d, v) if V > 300:
+        case ("aircraft", d, v) if v > 300:
             print(f"Швидкісний літак на відстані {d} км")
         case ("drone", d, v) if v < 100:
             print(f"Малошвидкісний БПЛА на відстані {d} км")
@@ -39,12 +39,12 @@ def classify_radar_target(target: tuple) -> str:
 def charge_pressure_vessel(target_bar: float) -> str:
     """
     У циклі while збільшує тиск на 1.5 бар.
-    Якщо тиск перевищує 60 бар -> аварійний break ("Аварійне скидання").
+    Якщо тиск перевищує 50 бар -> аварійний break ("Аварійне скидання").
     Якщо досягнуто target_bar штатно -> через else повертає "Розрахунковий тиск досягнуто успішно".
     """
     p = 0.0
     while p <= target_bar:
-        if p > target_bar:
+        if p > 50:
             print("Аварійне скидання")
             break
         p += 1.5
@@ -66,3 +66,26 @@ def process_trajectory_shifts(coords: list) -> list:
         d = ((point2[0]-point1[0])**2 + (point2[1]-point1[1])**2)**0.5
         distances.append(d)
     return distances
+
+#Test 1.1
+print('Test 1.1')
+unlock_payload(("ARMED", 20, 30, 50))
+unlock_payload(("not ARMED", 20, 30, 50))
+unlock_payload(("ARMED", 20, 30, 40))
+
+#Test 1.2
+print('Test 1.2')
+classify_radar_target(("aircraft", 10, 350))
+classify_radar_target(("aircraft", 10, 200))
+classify_radar_target(("drone", 20, 50))
+classify_radar_target(("drone", 20, 150))
+classify_radar_target(("plane", 20, 100))
+
+#Test 1.3
+print('Test 1.3')
+charge_pressure_vessel(50.0)
+charge_pressure_vessel(60.0)
+
+#Test 1.4
+print('Test 1.4')
+print(process_trajectory_shifts([(1, 1), (0, 1), (2, 3), (4, 5)]))
