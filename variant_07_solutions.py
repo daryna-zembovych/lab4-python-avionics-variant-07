@@ -42,7 +42,15 @@ def charge_pressure_vessel(target_bar: float) -> str:
     Якщо тиск перевищує 60 бар -> аварійний break ("Аварійне скидання").
     Якщо досягнуто target_bar штатно -> через else повертає "Розрахунковий тиск досягнуто успішно".
     """
-    ...
+    p = 0.0
+    while p <= target_bar:
+        if p > target_bar:
+            print("Аварійне скидання")
+            break
+        p += 1.5
+    else:
+        print("Розрахунковий тиск досягнуто успішно")
+        
 
 # Задача 4: Тасування координат (range / slicing)
 def process_trajectory_shifts(coords: list) -> list:
