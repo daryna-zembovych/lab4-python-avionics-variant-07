@@ -50,7 +50,7 @@ def charge_pressure_vessel(target_bar: float) -> str:
         p += 1.5
     else:
         print("Розрахунковий тиск досягнуто успішно")
-        
+
 
 # Задача 4: Тасування координат (range / slicing)
 def process_trajectory_shifts(coords: list) -> list:
@@ -58,4 +58,11 @@ def process_trajectory_shifts(coords: list) -> list:
     Для кожного i в range(len(coords)) здійснює зсув списку coords[i:] + coords[:i]
     та обчислює відстані між першими двома точками зсунутого списку.
     """
-    ...
+    distances = []
+    for i in range(len(coords)):
+        shifted_coords = coords[i:] + coords[:i]
+        point1 = shifted_coords[0]
+        point2 = shifted_coords[1]
+        d = ((point2[0]-point1[0])**2 + (point2[1]-point1[1])**2)**0.5
+        distances.append(d)
+    return distances
